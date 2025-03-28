@@ -98,19 +98,3 @@ I also love to dig deep into RFC:s in order to understand every detail of standa
 * I guess there was a little type-o in the OpenAPI specification for the Customer Data API. The `#/components/schemas/ContactDetails/properties/address` property does not correspond to the actual response from the API. In the actual response the property is named `addresses`. I have updated the specification to reflect this.
 
 * The Customer Data API was missing operationIds for the operations, I've added these.
-
-
-
-## When you are done
-
-1. Commit/merge your final solution to the master or main branch of the git repository.
-
-2. Create a zip file with the project.
-
-3. Send the result to us by the contact address.
-
-If you have questions or problems, please dont hesitate to mail us!
-
-## Contact address
-
-jilhol@carnegie.se
