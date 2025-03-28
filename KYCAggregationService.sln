@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionAPI", "AzureFunctionAPI\AzureFunctionAPI.csproj", "{D8D48051-6284-4AA9-876E-894EA613452A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README-task.md = README-task.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OpenAPI", "OpenAPI\OpenAPI.shproj", "{5D9A731E-9B8E-40EE-B9C8-DF1D11B8087B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionAPITests", "AzureFunctionAPITests\AzureFunctionAPITests.csproj", "{39B022DB-D3CB-449D-8134-8FB982219960}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8D48051-6284-4AA9-876E-894EA613452A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D48051-6284-4AA9-876E-894EA613452A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D48051-6284-4AA9-876E-894EA613452A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D48051-6284-4AA9-876E-894EA613452A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B022DB-D3CB-449D-8134-8FB982219960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B022DB-D3CB-449D-8134-8FB982219960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B022DB-D3CB-449D-8134-8FB982219960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B022DB-D3CB-449D-8134-8FB982219960}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06D1C3B4-FCDE-4422-8DD6-4386F62582DC}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		OpenAPI\OpenAPI.projitems*{5d9a731e-9b8e-40ee-b9c8-df1d11b8087b}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal

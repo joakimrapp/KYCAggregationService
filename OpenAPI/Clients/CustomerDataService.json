@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Customer Data API",
+    "version": "1.0.0",
+    "description": "API for retrieving customer personal details, contact information, and KYC form data."
+  },
+  "servers": [
+    {
+      "url": "https://customerdataapi.azurewebsites.net/api",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/personal-details/{ssn}": {
+      "get": {
+        "operationId": "GetPersonalDetails",
+        "summary": "Get customer personal details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RequiredSocialSecurityNumber"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/PersonalDetails"
+          },
+          "404": {
+            "description": "Customer not found"
+          },
+          "400": {
+            "description": "Invalid SSN format"
+          }
+        }
+      }
+    },
+    "/contact-details/{ssn}": {
+      "get": {
+        "operationId": "GetContactDetails",
+        "summary": "Get customer contact details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RequiredSocialSecurityNumber"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ContactDetails"
+          },
+          "404": {
+            "description": "Customer not found"
+          },
+          "400": {
+            "description": "Invalid SSN format"
+          }
+        }
+      }
+    },
+    "/kyc-form/{ssn}/{asOfDate}": {
+      "get": {
+        "operationId": "GetKYCFormData",
+        "summary": "Get customer KYC form data",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RequiredSocialSecurityNumber"
+          },
+          {
+            "$ref": "#/components/parameters/RequiredAsOfDate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/KYCForm"
+          },
+          "404": {
+            "description": "Customer or KYC form not found"
+          },
+          "400": {
+            "description": "Invalid SSN format or date"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SocialSecurityNumber": {
+        "type": "string",
+        "pattern": "^[0-9]{6}-[0-9]{4}$"
+      },
+      "Date": {
+        "type": "string",
+        "format": "date"
+      },
+      "PersonalDetails": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "sur_name": {
+            "type": "string"
+          }
+        }
+      },
+      "ContactDetails": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Email"
+            }
+          },
+          "phone_numbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PhoneNumber"
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "Email": {
+        "type": "object",
+        "properties": {
+          "preferred": {
+            "type": "boolean"
+          },
+          "email_address": {
+            "type": "string"
+          }
+        }
+      },
+      "PhoneNumber": {
+        "type": "object",
+        "properties": {
+          "preferred": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "string"
+          }
+        }
+      },
+      "KYCForm": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCItem"
+            }
+          }
+        }
+      },
+      "KYCItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "PersonalDetails": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PersonalDetails"
+            }
+          }
+        }
+      },
+      "ContactDetails": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContactDetails"
+            }
+          }
+        }
+      },
+      "KYCForm": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/KYCForm"
+            },
+            "example": {
+              "$ref": "#/components/examples/KYCForm"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "RequiredSocialSecurityNumber": {
+        "in": "path",
+        "name": "ssn",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/SocialSecurityNumber"
+        },
+        "description": "Social Security Number of the customer"
+      },
+      "RequiredAsOfDate": {
+        "in": "path",
+        "name": "asOfDate",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Date"
+        },
+        "description": "The date for which to retrieve the KYC form data"
+      }
+    },
+    "examples": {
+      "KYCForm": {
+        "items": [
+          {
+            "key": "tax_identification_number",
+            "value": "123-45-6789"
+          },
+          {
+            "key": "date_of_birth",
+            "value": "1980-01-15"
+          },
+          {
+            "key": "nationality",
+            "value": "Denmark"
+          },
+          {
+            "key": "occupation",
+            "value": "Software Engineer"
+          },
+          {
+            "key": "source_of_funds",
+            "value": "Employment Income"
+          },
+          {
+            "key": "politically_exposed_person",
+            "value": "No"
+          },
+          {
+            "key": "annual_income",
+            "value": "500000"
+          },
+          {
+            "key": "expected_transaction_volume",
+            "value": "100000"
+          },
+          {
+            "key": "purpose_of_account",
+            "value": "Savings and Investments"
+          },
+          {
+            "key": "risk_profile",
+            "value": "Medium"
+          },
+          {
+            "key": "tax_country",
+            "value": "DK"
+          },
+          {
+            "key": "kyc_registration_date",
+            "value": "1997-10-01"
+          }
+        ]
+      }
+    }
+  }
+}
